@@ -4,6 +4,9 @@ FROM node:22-alpine AS builder
 # Set working directory
 WORKDIR /app
 
+# Install openssl for Prisma
+RUN apk add --no-cache openssl
+
 # Copy package files
 COPY package.json package-lock.json* ./
 
@@ -12,6 +15,9 @@ RUN npm ci
 
 # Copy all source files
 COPY . .
+
+# Generate Prisma client
+RUN npx prisma generate
 
 # Build arguments for build-time environment variables
 ENV NODE_ENV=production
@@ -27,6 +33,9 @@ FROM node:22-alpine AS runner
 
 # Set working directory
 WORKDIR /app
+
+# Install openssl for Prisma
+RUN apk add --no-cache openssl
 
 # Copy necessary files from builder
 COPY --from=builder /app/build ./build
