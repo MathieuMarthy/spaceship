@@ -18,6 +18,7 @@ COPY . .
 
 # Generate Prisma client
 RUN npx prisma generate
+RUN npx prisma migrate deploy --preview-feature
 
 # Build arguments for build-time environment variables
 ENV NODE_ENV=production
