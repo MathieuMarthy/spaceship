@@ -7,6 +7,7 @@
 		"dev": "vite dev --host 0.0.0.0 --open false",
 		"build": "vite build",
 		"preview": "vite preview",
+		"start": "node build",
 		"db:reset": "prisma migrate reset --force && tsx prisma/seed.ts",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
